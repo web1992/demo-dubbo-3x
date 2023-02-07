@@ -1,5 +1,6 @@
 HELP.md
 common.logDir_IS_UNDEFINED
+dubbo-governance.log
 .mvn
 target/
 !.mvn/wrapper/maven-wrapper.jar
