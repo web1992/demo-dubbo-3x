@@ -26,7 +26,6 @@
     <!-- connections is the tcp connection between consumer and provider -->
     <dubbo:consumer connections="3" threads="10" timeout="3000" retries="0" check="false"/>
 
-<!--        <dubbo:registry address="zookeeper://online.zookeeper.zhaogangrentest.com:2181" />-->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
     <!-- <dubbo:consumer
