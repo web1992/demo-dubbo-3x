@@ -23,13 +23,12 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(exclude = {
-        HibernateJpaAutoConfiguration.class
+        HibernateJpaAutoConfiguration.class,
 })
 @ImportResource("spring/dubbo-provider.xml")
 public class DubboXmlProviderApplication {
 
     public static void main(String[] args) {
-        System.setProperty("dubbo.service.version", "TEST");
         SpringApplication.run(DubboXmlProviderApplication.class, args);
     }
 }

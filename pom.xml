@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,6 +21,73 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.internet.measure</groupId>
+            <artifactId>measure-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.internet.item</groupId>
+                    <artifactId>itemcenter-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.internet.item</groupId>
+            <artifactId>itemcenter-client</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.internet.dependency</groupId>
+                    <artifactId>dependency-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.internet.whcenter</groupId>
+                    <artifactId>whcenter-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.internet.stone</groupId>
+                    <artifactId>stone-sdk</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.internet.trace</groupId>
+                    <artifactId>trace-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.internet.util</groupId>
+                    <artifactId>rpc-util</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.internet.accuracy</groupId>
+            <artifactId>accuracy-util</artifactId>
+            <version>1.2.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.internet.stone</groupId>
+                    <artifactId>stone-sdk</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.internet.util</groupId>
+            <artifactId>common-util</artifactId>
+            <version>1.2.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.internet.util</groupId>
+                    <artifactId>rpc-util</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.internet.dependency</groupId>
+                    <artifactId>dependency-common</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
@@ -53,12 +120,12 @@
             <version>2.6</version>
         </dependency>
 
-       <!-- <dependency>
-            <groupId>com.taobao.arthas</groupId>
-            <artifactId>arthas-spring-boot-starter</artifactId>
-            <version>3.4.8</version>
-            <scope>runtime</scope>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>com.taobao.arthas</groupId>
+             <artifactId>arthas-spring-boot-starter</artifactId>
+             <version>3.4.8</version>
+             <scope>runtime</scope>
+         </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

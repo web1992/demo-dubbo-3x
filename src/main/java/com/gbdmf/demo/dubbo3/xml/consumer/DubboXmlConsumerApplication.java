@@ -18,6 +18,14 @@
 package com.gbdmf.demo.dubbo3.xml.consumer;
 
 import com.gbdmf.demo.dubbo3.api.GreetingsService;
+import com.gbdmf.demo.dubbo3.api.TestParamDTO;
+import com.google.common.collect.Lists;
+import com.internet.common.enums.ValuationWayValue;
+import com.internet.common.unit.enums.Unit;
+import com.internet.measure.common.dp.common.MultiUnitDP;
+import com.internet.measure.common.dto.UnitDTO;
+import com.internet.measure.common.enums.MeasureSubTypeEnum;
+import com.internet.measure.common.enums.MeasureTypeEnum;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,8 +35,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ImportResource;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @SpringBootApplication(exclude = {
-        HibernateJpaAutoConfiguration.class
+        HibernateJpaAutoConfiguration.class,
 })
 @ImportResource("spring/dubbo-consumer.xml")
 public class DubboXmlConsumerApplication implements ApplicationContextAware, CommandLineRunner {
@@ -36,7 +47,6 @@ public class DubboXmlConsumerApplication implements ApplicationContextAware, Com
     private ApplicationContext applicationContext;
 
     public static void main(String[] args) {
-        System.setProperty("dubbo.reference.version", "TEST");
         SpringApplication.run(DubboXmlConsumerApplication.class, args);
     }
 
@@ -50,11 +60,40 @@ public class DubboXmlConsumerApplication implements ApplicationContextAware, Com
         try {
             System.out.println("consumer start ok >>>");
             GreetingsService greetingsService = applicationContext.getBean(GreetingsService.class);
-            String ans = greetingsService.sayHi("满分");
+
+            TestParamDTO testParamDTO = new TestParamDTO();
+
+            List<UnitDTO> measureDTOs = measureList();
+
+            MultiUnitDP multiUnitDP = new MultiUnitDP(measureDTOs, ValuationWayValue.CHAO_MA);
+            testParamDTO.setOrderRealQuantity(multiUnitDP.toDTO());
+
+            String ans = greetingsService.sayHi("11");
+//            String ans = greetingsService.sayHi2(testParamDTO);
             System.out.println("ans=" + ans);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.in.read();
+    }
+
+    private List<UnitDTO> measureList() {
+
+        List<UnitDTO> list = Lists.newArrayList();
+
+        long timeId = System.currentTimeMillis();
+        UnitDTO measureDO = new UnitDTO();
+
+        measureDO.setMeasureType(MeasureTypeEnum.QT.name());
+        measureDO.setMeasureSubType(MeasureSubTypeEnum.LST.name());
+        measureDO.setNum(new BigDecimal("10"));
+        measureDO.setUnitId(Unit.TON.getUnitId());
+        measureDO.setUnitName(Unit.TON.getLabel());
+        measureDO.setUnitCode(Unit.TON.name());
+
+
+        list.add(measureDO);
+
+        return list;
     }
 }
